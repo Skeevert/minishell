@@ -66,13 +66,14 @@ char	*get_user_command()
 int	main(int argc, char **argv)
 {
 	char	*buff;
-	char	temp;
-	int	i = 0;
 
-	if (!(buff = get_user_command()))
-		return (0);
-	printf("%s", buff);
-	printf(" done\n");
-	free(buff);
+	while (1)
+	{
+		if (!(buff = get_user_command()))
+			return (0);
+		printf("%s", buff);
+		printf(" done\n");
+		free(buff);
+	}
 	return (0);
 }
