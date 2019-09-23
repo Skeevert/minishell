@@ -2,12 +2,23 @@
 #include <stdio.h> /* REMOVE */
 #include <string.h> /* REMOVE */
 #include <stdlib.h>
+#include <linux/limits.h> /* CHANGE TO SOMETHING APPROPRIATE TO MAC */
 
 #define BUFF_SIZE 4096
+
+void	form_curr_path()
+{
+	char	curr_path[PATH_MAX + 3];
+
+	getcwd(curr_path, PATH_MAX);
+	strcat(curr_path, "> ");
+	write(1, curr_path, strlen(curr_path));
+}
 
 char	*strjoin(char *str1, char *str2)
 {
 	char	*output;
+
 	if (!str2)
 		return (0);
 	if (!str1)
@@ -30,12 +41,11 @@ char	*get_user_command()
 {
 	char	*command;
 	char	save[BUFF_SIZE + 1];
-	char	temp;
 	int	i;
 
-	temp = 0;
 	i = 0;
 	command = 0;
+	form_curr_path();
 	while ((read(0, save + i, 1)) && *(save + i) != '\n')
 	{
 		i++;
