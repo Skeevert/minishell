@@ -46,7 +46,7 @@ char	*get_user_command()
 	i = 0;
 	command = 0;
 	form_curr_path();
-	while ((read(0, save + i, 1)) && *(save + i) != '\n')
+	while ((read(0, save + i, 1)) && *(save + i) != '\n') /* TODO: CHANGE TO READ BUFFSIZE */
 	{
 		i++;
 		if (i == BUFF_SIZE)
