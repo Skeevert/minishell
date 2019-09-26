@@ -6,7 +6,7 @@
 #    By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 16:37:05 by hshawand          #+#    #+#              #
-#    Updated: 2019/09/22 13:29:11 by hshawand         ###   ########.fr        #
+#    Updated: 2019/09/26 13:55:00 by hshawand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ ft_strmapi.o \
 ft_strnequ.o \
 ft_strnew.o \
 ft_strsplit.o \
+fT_splitspctab.o \
 ft_strsub.o \
 ft_strtrim.o \
 ft_putnbr_fd.o \
