@@ -25,6 +25,7 @@ int		main(void)
 			return (0);
 		if (!(split_buff = ft_splitspctab(buff)))
 			return (0);
+		parse_input(split_buff);
 		input_clean(split_buff, buff);
 	}
 	return (0);

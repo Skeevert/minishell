@@ -10,5 +10,8 @@
 # define BUFF_SIZE 4096
 
 char	*get_user_command(void);
+void	parse_input(char **buff);
+
+void	builtin_exit(char **buff);
 
 #endif
