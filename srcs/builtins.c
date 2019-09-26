@@ -6,7 +6,7 @@ void	builtin_exit(char **buff)
 	{
 		if (buff[2])
 		{
-			ft_putstr("exit: too many arguments\n");
+			write(2, "exit: too many arguments\n", 25);
 			return ;
 		}
 		exit(ft_atoi(buff[1]));
