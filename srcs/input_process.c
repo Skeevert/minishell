@@ -5,7 +5,7 @@ void	parse_input(char **buff, char **envp)
 	if (!buff || !buff[0])
 		return ;
 	if (!(ft_strcmp(buff[0], "cd")))
-		builtin_cd(buff);
+		builtin_cd(buff, envp);
 	else if (!(ft_strcmp(buff[0], "echo")))
 		builtin_echo(buff);
 	else if (!(ft_strcmp(buff[0], "setenv")))

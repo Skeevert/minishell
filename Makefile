@@ -1,7 +1,8 @@
 OBJS = srcs/main.o \
 	   srcs/user_input.o \
 	   srcs/input_process.o \
-	   srcs/builtins.o
+	   srcs/builtins.o \
+	   srcs/utils.o
 
 FLAGS = -Wall -Wextra -Werror
 
