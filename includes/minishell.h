@@ -12,6 +12,7 @@
 char	*get_user_command(void);
 void	parse_input(char **buff);
 
+void	builtin_cd(char **buff);
 void	builtin_exit(char **buff);
 
 #endif

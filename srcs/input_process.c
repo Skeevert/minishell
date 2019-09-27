@@ -5,7 +5,7 @@ void	parse_input(char **buff)
 	if (!buff || !buff[0])
 		return ;
 	if (!(ft_strcmp(buff[0], "cd")))
-		ft_putstr("cd invoked\n");
+		builtin_cd(buff);
 	else if (!(ft_strcmp(buff[0], "echo")))
 		ft_putstr("echo invoked\n");
 	else if (!(ft_strcmp(buff[0], "setenv")))
