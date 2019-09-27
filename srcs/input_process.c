@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	parse_input(char **buff)
+void	parse_input(char **buff, char **envp)
 {
 	if (!buff || !buff[0])
 		return ;
@@ -13,7 +13,7 @@ void	parse_input(char **buff)
 	else if (!(ft_strcmp(buff[0], "unsetenv")))
 		ft_putstr("unsetenv invoked\n");
 	else if (!(ft_strcmp(buff[0], "env")))
-		ft_putstr("env invoked\n");
+		builtin_env(envp);
 	else if (!(ft_strcmp(buff[0], "exit")))
 		builtin_exit(buff);
 	else

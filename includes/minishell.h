@@ -6,14 +6,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <sys/types.h>
 
 # define BUFF_SIZE 4096
 
 char	*get_user_command(void);
-void	parse_input(char **buff);
+void	parse_input(char **buff, char **envp);
 
 void	builtin_cd(char **buff);
 void	builtin_exit(char **buff);
 void	builtin_echo(char **buff);
+void	builtin_env(char **envp);
 
 #endif

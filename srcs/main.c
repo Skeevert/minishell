@@ -14,7 +14,7 @@ void	input_clean(char **arr, char *str)
 	free(str);
 }
 
-int		main(void)
+int		main(int argc, char **argv, char **envp)
 {
 	char	*buff;
 	char	**split_buff; /* FREE */
@@ -25,8 +25,10 @@ int		main(void)
 			return (0);
 		if (!(split_buff = ft_splitspctab(buff)))
 			return (0);
-		parse_input(split_buff);
+		parse_input(split_buff, envp);
 		input_clean(split_buff, buff);
 	}
+	(void)argc;
+	(void)argv;
 	return (0);
 }

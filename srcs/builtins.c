@@ -50,3 +50,16 @@ void	builtin_cd(char **buff)
 		if (chdir(buff[1]))
 			write(2, "is not a directory\n", 19);
 }
+
+void	builtin_env(char **envp)
+{
+	int		i;
+
+	i = 0;
+	while(envp[i])
+	{
+		ft_putstr(envp[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+}
