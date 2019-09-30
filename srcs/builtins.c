@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	builtin_exit(char **buff)
+void	builtin_exit(char **buff, char ***env)
 {
 	if (buff[1])
 	{
@@ -9,10 +9,14 @@ void	builtin_exit(char **buff)
 			write(2, "exit: too many arguments\n", 25);
 			return ;
 		}
+		env_clean(*env);
 		exit(ft_atoi(buff[1]));
 	}
 	else
+	{
+		env_clean(*env);
 		exit(0); /* TODO: if specified, exit with the return of previous program */
+	}
 }
 
 void	builtin_echo(char **buff)
@@ -29,14 +33,14 @@ void	builtin_echo(char **buff)
 	write(1, "\n", 1);
 }
 
-void	builtin_cd(char **buff, char **envp)
+void	builtin_cd(char **buff, char **env)
 {
 	char	path[PATH_MAX + 1];
 
 	if (!buff[1])
-		chdir(get_homedir(envp, path)); /* IT DOESN't WORK IN THAT WAY! */
+		chdir(get_homedir(env, path));
 	else if (buff[1][0] == '~')
-		rel_to_home(envp, buff);
+		rel_to_home(env, buff);
 	else if (buff[2])
 		write(2, "not in pwd\n", 11); /* TODO: change */
 	else if (access(buff[1], F_OK))
@@ -44,17 +48,4 @@ void	builtin_cd(char **buff, char **envp)
 	else
 		if (chdir(buff[1]))
 			write(2, "is not a directory\n", 19);
-}
-
-void	builtin_env(char **envp)
-{
-	int		i;
-
-	i = 0;
-	while(envp[i])
-	{
-		ft_putstr(envp[i]);
-		write(1, "\n", 1);
-		i++;
-	}
 }
