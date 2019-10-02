@@ -32,15 +32,16 @@ void	form_curr_path()
 char	*get_user_command(void)
 {
 	char	*command;
+	char	temp;
 	char	save[BUFF_SIZE + 1];
-	int	i;
+	int		i;
 
 	i = 0;
 	command = 0;
 	form_curr_path();
-	signal(SIGINT, handle_sigint);
-	while ((read(0, save + i, 1)) && *(save + i) != '\n')
+	while ((read(0, &temp, 1)) && temp != '\n')
 	{
+		*(save + i) = temp;
 		i++;
 		if (i == BUFF_SIZE)
 		{
@@ -58,18 +59,9 @@ char	*get_user_command(void)
 
 void	handle_sigint(int sig)
 {
-	if (g_child_pid)
-	{
-		kill(g_child_pid, SIGINT);
-		write(1, "\n", 1);
-		signal(sig, handle_sigint);
-	}
-	else
-	{
-		write(1, "\n", 1);
-		signal(sig, handle_sigint);
-		form_curr_path();
-	}
+	write(1, "\n", 1);
+	signal(sig, handle_sigint);
+	form_curr_path();
 }
 
 void	minishell()
@@ -79,6 +71,7 @@ void	minishell()
 
 	while (1)
 	{
+		signal(SIGINT, handle_sigint);
 		if (!(buff = get_user_command()))
 			return ;
 		if (!(split_buff = ft_splitspctab(buff)))
