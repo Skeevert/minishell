@@ -38,6 +38,7 @@ char	*get_user_command(void)
 	i = 0;
 	command = 0;
 	form_curr_path();
+	signal(SIGINT, handle_sigint);
 	while ((read(0, save + i, 1)) && *(save + i) != '\n')
 	{
 		i++;
@@ -57,12 +58,18 @@ char	*get_user_command(void)
 
 void	handle_sigint(int sig)
 {
-	(void)sig;
-	kill(g_child_pid, SIGINT);
-	/*
-	write(1, "\n", 1);
-	return minishell();
-	*/
+	if (g_child_pid)
+	{
+		kill(g_child_pid, SIGINT);
+		write(1, "\n", 1);
+		signal(sig, handle_sigint);
+	}
+	else
+	{
+		write(1, "\n", 1);
+		signal(sig, handle_sigint);
+		form_curr_path();
+	}
 }
 
 void	minishell()
@@ -70,7 +77,6 @@ void	minishell()
 	char	*buff;
 	char	**split_buff;
 
-	signal(SIGINT, handle_sigint);
 	while (1)
 	{
 		if (!(buff = get_user_command()))

@@ -31,5 +31,6 @@ char	*get_homedir(char *path);
 void	rel_to_home(char **buff);
 
 void	execute(char **buff); /* TODO: change logic */
+void	handle_sigint(int sig);
 
 #endif

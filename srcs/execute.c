@@ -15,6 +15,8 @@ void	execute(char **buff)
 	else
 	{
 		g_child_pid = pid_local;
+		signal(SIGINT, handle_sigint);
 		wait(&g_child_pid);
+		g_child_pid = 0;
 	}
 }
