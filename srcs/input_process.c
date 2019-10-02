@@ -39,6 +39,7 @@ char	*get_user_command(void)
 	i = 0;
 	command = 0;
 	form_curr_path();
+	signal(SIGINT, handle_sigint);
 	while ((read(0, &temp, 1)) && temp != '\n')
 	{
 		*(save + i) = temp;
@@ -60,11 +61,9 @@ char	*get_user_command(void)
 void	handle_sigint(int sig)
 {
 	signal(sig, handle_sigint);	
+	write(1, "\n", 1);
 	if (!g_child_pid)
-	{
-		write(1, "\n", 1);
 		form_curr_path();
-	}
 }
 
 void	minishell()
@@ -74,7 +73,6 @@ void	minishell()
 
 	while (1)
 	{
-		signal(SIGINT, handle_sigint);
 		if (!(buff = get_user_command()))
 			return ;
 		if (!(split_buff = ft_splitspctab(buff)))
