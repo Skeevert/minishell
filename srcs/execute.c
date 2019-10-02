@@ -1,17 +1,11 @@
 #include "minishell.h"
 
-void	handle_proc(int sig)
-{
-/*	kill(g_child_pid, SIGINT); */
-	signal(sig, handle_proc);
-}
-
 void	execute(char **buff)
 {
 	pid_t	pid_local;
 
 	pid_local = fork();
-	signal(SIGINT, handle_proc);
+	signal(SIGINT, handle_sigint);
 	if (!pid_local)
 	{
 		if (execve(buff[0], buff, g_env) == -1)

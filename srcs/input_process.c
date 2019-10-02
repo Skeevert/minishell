@@ -59,9 +59,12 @@ char	*get_user_command(void)
 
 void	handle_sigint(int sig)
 {
-	write(1, "\n", 1);
-	signal(sig, handle_sigint);
-	form_curr_path();
+	signal(sig, handle_sigint);	
+	if (!g_child_pid)
+	{
+		write(1, "\n", 1);
+		form_curr_path();
+	}
 }
 
 void	minishell()
