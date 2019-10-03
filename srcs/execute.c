@@ -1,20 +1,16 @@
 #include "minishell.h"
 
-int		try_run(char *path, char **buff)
+int		p_exec(char *path, char **buff)
 {
-	char	path_full[PATH_MAX];
 	pid_t	pid_local;
 
-	ft_strcpy(path_full, path);
-	ft_strcat(path_full, "/");
-	ft_strcat(path_full, buff[0]);
-	if (access(path_full, 1))
+	if (access(path, 1))
 		return (-1);
 	pid_local = fork();
 	signal(SIGINT, handle_sigint);
 	if (!pid_local)
 	{
-		if (execve(path_full, buff, g_env) == -1)
+		if (execve(path, buff, g_env) == -1)
 			return (-1); /* Permission denied */
 	}
 	else if (pid_local < 0)
@@ -23,6 +19,16 @@ int		try_run(char *path, char **buff)
 	wait(&g_child_pid);
 	g_child_pid = 0;
 	return (0);
+}
+
+int		try_run(char *path, char **buff)
+{
+	char	path_full[PATH_MAX];
+
+	ft_strcpy(path_full, path);
+	ft_strcat(path_full, "/");
+	ft_strcat(path_full, buff[0]);
+	return p_exec(path_full, buff);
 }
 
 void	execute(char **buff)
@@ -40,7 +46,8 @@ void	execute(char **buff)
 	while (exec_paths[j] && try_run(exec_paths[j], buff))
 		j++;
 	if (!exec_paths[j])
-		write(1, "Test\n", 5);
+		if(p_exec(buff[0], buff))
+			return ;
 	j = 0;
 	while (exec_paths[j])
 	{
