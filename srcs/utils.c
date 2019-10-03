@@ -1,24 +1,13 @@
 #include "minishell.h"
 
-char	*get_user(char *user)
+char	*get_homedir(char *path)
 {
 	int		i;
 
 	i = 0;
-	ft_bzero(user, 33);
-	while (g_env[i] && ft_strncmp(g_env[i], "USER=", 5))
+	while (g_env[i] && ft_strncmp(g_env[i], "HOME=", 5))
 		i++;
-	ft_strcpy(user, g_env[i] + 5);
-	return(user);
-}
-
-char	*get_homedir(char *path)
-{
-	char	user[33];
-
-	get_user(user);
-	ft_strcpy(path, "/Users/");
-	ft_strcat(path, user);
+	ft_strcpy(path, g_env[i] + 5);
 	return(path);
 }
 
