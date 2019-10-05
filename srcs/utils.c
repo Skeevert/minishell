@@ -1,5 +1,31 @@
 #include "minishell.h"
 
+int		get_val(char **buff)
+{
+	int			i;
+	int			j;
+	size_t	len;
+
+	i = 0;
+	j = 0;
+	while (buff[i])
+	{
+		if (buff[i][0] == '$')
+		{
+			j = 0;
+			len = ft_strlen(buff[i] + 1);
+			while (g_env[j] && ft_strncmp(g_env[j], buff[i] + 1, len))
+				j++;
+			if (!g_env[j])
+				return (-1); /* ERROR */
+			free(buff[i]);
+			buff[i] = ft_strdup(g_env[j] + len + 1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 char	*get_homedir(char *path)
 {
 	int		i;

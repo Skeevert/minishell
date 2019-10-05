@@ -2,6 +2,8 @@
 
 void	parse_input(char **buff)
 {
+	if (get_val(buff))
+		return ; /* Val error */
 	if (!buff || !buff[0])
 		return ;
 	if (!(ft_strcmp(buff[0], "cd")))

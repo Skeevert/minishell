@@ -27,6 +27,7 @@ void	builtin_env();
 void	builtin_setenv(char **buff);
 void	builtin_unsetenv(char **buff);
 
+int		get_val(char **buff);
 char	*get_homedir(char *path);
 void	rel_to_home(char **buff);
 
