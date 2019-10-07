@@ -33,19 +33,52 @@ void	builtin_echo(char **buff)
 	write(1, "\n", 1);
 }
 
+void	change_dir(char *path)
+{
+	char	pwd[PATH_MAX];
+	int 	i;
+
+	i = 0;
+	while (ft_strncmp(g_env[i], "OLDPWD=", 7))
+		i++;
+	getcwd(pwd, PATH_MAX);
+	if (chdir(path))
+	{
+		write(2, "Not a Directory\n", 16);
+		return ;
+	}
+	free(g_env[i]);
+	if (!(g_env[i] = ft_strjoin("OLDPWD=", pwd)))
+		return ;
+	getcwd(pwd, PATH_MAX);
+	i = 0;
+	while (ft_strncmp(g_env[i], "PWD=", 4))
+		i++;
+	free(g_env[i]);
+	if (!(g_env[i] = ft_strjoin("PWD=", pwd)))
+		return ;
+}
+
 void	builtin_cd(char **buff)
 {
 	char	path[PATH_MAX + 1];
+	int		i;
 
 	if (!buff[1])
-		chdir(get_homedir(path));
-	else if (buff[1][0] == '~')
-		rel_to_home(buff);
+		change_dir(get_homedir(path));
 	else if (buff[2])
 		write(2, "not in pwd\n", 11); /* TODO: change */
+	else if (buff[1][0] == '~')
+		rel_to_home(buff);
+	else if (buff[1][0] == '-' && !buff[1][1])
+	{
+		i = 0;
+		while (ft_strncmp(g_env[i], "OLDPWD=", 7))
+			i++;
+		change_dir(g_env[i] + 7);
+	}
 	else if (access(buff[1], F_OK))
 		write(2, "cannot find\n", 12); /* TODO: change */
 	else
-		if (chdir(buff[1]))
-			write(2, "is not a directory\n", 19);
+		change_dir(buff[1]);
 }

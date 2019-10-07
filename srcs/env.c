@@ -50,7 +50,7 @@ void	builtin_setenv(char **buff)
 	char	*del;
 
 	i = 0;
-	if (!buff[1])
+	if (!buff[1] || buff[2])
 		return ; /* Error */
 	del = ft_strchr(buff[1], '=');
 	if (!del)

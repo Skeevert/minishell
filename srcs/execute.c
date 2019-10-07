@@ -1,10 +1,12 @@
 #include "minishell.h"
 
-int		p_exec(char *path, char **buff)
+int		p_exec(char *path, char **buff, char mode)
 {
 	pid_t	pid_local;
 
 	if (access(path, 1))
+		return (-1);
+	if (!mode && !ft_strchr(path, '/'))
 		return (-1);
 	pid_local = fork();
 	signal(SIGINT, handle_sigint);
@@ -28,7 +30,7 @@ int		try_run(char *path, char **buff)
 	ft_strcpy(path_full, path);
 	ft_strcat(path_full, "/");
 	ft_strcat(path_full, buff[0]);
-	return p_exec(path_full, buff);
+	return p_exec(path_full, buff, 1);
 }
 
 void	execute(char **buff)
@@ -46,8 +48,8 @@ void	execute(char **buff)
 	while (exec_paths[j] && try_run(exec_paths[j], buff))
 		j++;
 	if (!exec_paths[j])
-		if(p_exec(buff[0], buff))
-			return ;
+		if (p_exec(buff[0], buff, 0))
+			write(2, "Not a builtin\n", 14);
 	j = 0;
 	while (exec_paths[j])
 	{
