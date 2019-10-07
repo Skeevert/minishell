@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:48:24 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/07 16:08:12 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/07 22:29:13 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ char	*get_user_command(void)
 void	handle_sigint(int sig)
 {
 	signal(sig, handle_sigint);
-	write(1, "\n", 1);
 	if (!g_child_pid)
+	{
+		write(1, "\n", 1);
 		form_curr_path();
+	}
 }
 
 void	minishell(void)

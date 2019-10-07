@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:54:16 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/07 14:54:40 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/07 22:29:14 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int		p_exec(char *path, char **buff, char mode)
 	if (!mode && !ft_strchr(path, '/'))
 		return (-1);
 	pid_local = fork();
-	signal(SIGINT, handle_sigint);
 	if (!pid_local)
 	{
 		if (execve(path, buff, g_env) == -1)
-			return (int_err(3));
+			int_err(3);
 	}
 	else if (pid_local < 0)
 		return (int_err(4));
 	g_child_pid = pid_local;
 	wait(&g_child_pid);
+	write(1, "\n", 1);
 	g_child_pid = 0;
 	return (0);
 }
