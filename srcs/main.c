@@ -51,7 +51,7 @@ void	env_clean()
 int		main(int argc, char **argv, char **envp)
 {
 	if(!(g_env = form_env(envp)))
-		return (0); /* Error */
+		return (int_err(0));
 	minishell();
 	env_clean();
 	(void)argc;

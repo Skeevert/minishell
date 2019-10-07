@@ -15,7 +15,7 @@ void	builtin_exit(char **buff)
 	else
 	{
 		env_clean();
-		exit(0); /* TODO: if specified, exit with the return of previous program */
+		exit(0);
 	}
 }
 
@@ -43,20 +43,17 @@ void	change_dir(char *path)
 		i++;
 	getcwd(pwd, PATH_MAX);
 	if (chdir(path))
-	{
-		write(2, "Not a Directory\n", 16);
-		return ;
-	}
+		return void_err(1);
 	free(g_env[i]);
 	if (!(g_env[i] = ft_strjoin("OLDPWD=", pwd)))
-		return ;
+		return void_err(0);
 	getcwd(pwd, PATH_MAX);
 	i = 0;
 	while (ft_strncmp(g_env[i], "PWD=", 4))
 		i++;
 	free(g_env[i]);
 	if (!(g_env[i] = ft_strjoin("PWD=", pwd)))
-		return ;
+		return void_err(0);
 }
 
 void	builtin_cd(char **buff)
@@ -67,7 +64,7 @@ void	builtin_cd(char **buff)
 	if (!buff[1])
 		change_dir(get_homedir(path));
 	else if (buff[2])
-		write(2, "not in pwd\n", 11); /* TODO: change */
+		void_err(2);
 	else if (buff[1][0] == '~')
 		rel_to_home(buff);
 	else if (buff[1][0] == '-' && !buff[1][1])
@@ -78,7 +75,7 @@ void	builtin_cd(char **buff)
 		change_dir(g_env[i] + 7);
 	}
 	else if (access(buff[1], F_OK))
-		write(2, "cannot find\n", 12); /* TODO: change */
+		void_err(3);
 	else
 		change_dir(buff[1]);
 }

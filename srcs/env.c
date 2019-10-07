@@ -7,11 +7,11 @@ void	builtin_unsetenv(char **buff)
 
 	i = 0;
 	if (!buff[1])
-		return ; /* Error */
+		return void_err(5);
 	while (g_env[i] && ft_strncmp(g_env[i], buff[1], ft_strlen(buff[1])))
 		i++;
 	if(!g_env[i])
-		return ; /* Error: can't find environment variable */
+		return void_err(4);
 	to_free = g_env[i];
 	while (g_env[i])
 	{
@@ -30,7 +30,7 @@ void	add_env(char *new)
 	while(g_env[size])
 		size++;
 	if (!(new_env = (char **)malloc(sizeof(char *) * (size + 2))))
-		return ;
+		return void_err(0);
 	size = 0;
 	while (g_env[size])
 	{
@@ -38,7 +38,7 @@ void	add_env(char *new)
 		size++;
 	}
 	if (!(new_env[size] = ft_strdup(new)))
-		return ;
+		return void_err(0);
 	new_env[size + 1] = 0;
 	free(g_env);
 	g_env = new_env;
@@ -51,17 +51,17 @@ void	builtin_setenv(char **buff)
 
 	i = 0;
 	if (!buff[1] || buff[2])
-		return ; /* Error */
+		return void_err(5);
 	del = ft_strchr(buff[1], '=');
 	if (!del)
-		return ; /* Error */
+		return void_err(5);
 	while (g_env[i] && ft_strncmp(g_env[i], buff[1], del - buff[1]))
 		i++;	
 	if (g_env[i])
 	{
 		free(g_env[i]);
 		if (!(g_env[i] = ft_strdup(buff[1])))
-			return ; /* Error */
+			return void_err(0);
 	}
 	else
 		add_env(buff[1]);

@@ -15,6 +15,8 @@
 pid_t	g_child_pid;
 char	**g_env;
 
+void	void_err(int code);
+int		int_err(int code);
 char	*get_user_command(void);
 void	input_clean(char **split_buff, char *buff);
 void	minishell();

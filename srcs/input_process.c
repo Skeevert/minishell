@@ -3,7 +3,7 @@
 void	parse_input(char **buff)
 {
 	if (get_val(buff))
-		return ; /* Val error */
+		return ;
 	if (!buff || !buff[0])
 		return ;
 	if (!(ft_strcmp(buff[0], "cd")))
@@ -76,9 +76,9 @@ void	minishell()
 	while (1)
 	{
 		if (!(buff = get_user_command()))
-			return ;
+			return void_err(0);
 		if (!(split_buff = ft_splitspctab(buff)))
-			return ;
+			return void_err(0);
 		parse_input(split_buff);
 		input_clean(split_buff, buff);
 	}
