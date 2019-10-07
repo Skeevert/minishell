@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 14:46:51 by hshawand          #+#    #+#             */
+/*   Updated: 2019/10/07 14:47:56 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char**	form_env(char **envp)
+char	**form_env(char **envp)
 {
 	size_t	size;
 
 	size = 0;
-	while(envp[size])
+	while (envp[size])
 		size++;
 	if (!(g_env = (char **)malloc(sizeof(char *) * (size + 1))))
 		return (0);
@@ -35,7 +47,7 @@ void	input_clean(char **arr, char *str)
 	free(str);
 }
 
-void	env_clean()
+void	env_clean(void)
 {
 	int		i;
 
@@ -50,7 +62,7 @@ void	env_clean()
 
 int		main(int argc, char **argv, char **envp)
 {
-	if(!(g_env = form_env(envp)))
+	if (!(g_env = form_env(envp)))
 		return (int_err(0));
 	minishell();
 	env_clean();

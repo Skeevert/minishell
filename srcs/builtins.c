@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 14:50:02 by hshawand          #+#    #+#             */
+/*   Updated: 2019/10/07 14:51:12 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	builtin_exit(char **buff)
@@ -27,7 +39,7 @@ void	builtin_echo(char **buff)
 	while (buff[i])
 	{
 		ft_putstr(buff[i]);
-		buff[i + 1] ? write(1, " " , 1) : 0;
+		buff[i + 1] ? write(1, " ", 1) : 0;
 		i++;
 	}
 	write(1, "\n", 1);
@@ -36,24 +48,24 @@ void	builtin_echo(char **buff)
 void	change_dir(char *path)
 {
 	char	pwd[PATH_MAX];
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (ft_strncmp(g_env[i], "OLDPWD=", 7))
 		i++;
 	getcwd(pwd, PATH_MAX);
 	if (chdir(path))
-		return void_err(1);
+		return (void_err(1));
 	free(g_env[i]);
 	if (!(g_env[i] = ft_strjoin("OLDPWD=", pwd)))
-		return void_err(0);
+		return (void_err(0));
 	getcwd(pwd, PATH_MAX);
 	i = 0;
 	while (ft_strncmp(g_env[i], "PWD=", 4))
 		i++;
 	free(g_env[i]);
 	if (!(g_env[i] = ft_strjoin("PWD=", pwd)))
-		return void_err(0);
+		return (void_err(0));
 }
 
 void	builtin_cd(char **buff)

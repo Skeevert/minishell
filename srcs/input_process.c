@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_process.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 14:48:24 by hshawand          #+#    #+#             */
+/*   Updated: 2019/10/07 14:49:16 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	parse_input(char **buff)
@@ -22,7 +34,7 @@ void	parse_input(char **buff)
 		execute(buff);
 }
 
-void	form_curr_path()
+void	form_curr_path(void)
 {
 	char	curr_path[PATH_MAX + 3];
 
@@ -62,13 +74,13 @@ char	*get_user_command(void)
 
 void	handle_sigint(int sig)
 {
-	signal(sig, handle_sigint);	
+	signal(sig, handle_sigint);
 	write(1, "\n", 1);
 	if (!g_child_pid)
 		form_curr_path();
 }
 
-void	minishell()
+void	minishell(void)
 {
 	char	*buff;
 	char	**split_buff;
@@ -76,9 +88,9 @@ void	minishell()
 	while (1)
 	{
 		if (!(buff = get_user_command()))
-			return void_err(0);
+			return (void_err(0));
 		if (!(split_buff = ft_splitspctab(buff)))
-			return void_err(0);
+			return (void_err(0));
 		parse_input(split_buff);
 		input_clean(split_buff, buff);
 	}

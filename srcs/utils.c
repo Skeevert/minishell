@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 14:45:34 by hshawand          #+#    #+#             */
+/*   Updated: 2019/10/07 14:45:40 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	void_err(int code)
 {
 	if (code == 0)
-		write(2, "Cannot allocate enough memory. Shell restart recommended\n", 57);
+		write(2, "Cannot allocate enough memory
+			. Shell restart recommended\n", 57);
 	else if (code == 1)
 		write(2, "Not a Directory\n", 16);
 	else if (code == 2)
@@ -19,7 +32,8 @@ void	void_err(int code)
 int		int_err(int code)
 {
 	if (code == 0)
-		write(2, "Cannot allocate enough memory. Shell restart recommended\n", 57);
+		write(2, "Cannot allocate enough memory
+			. Shell restart recommended\n", 57);
 	else if (code == 1)
 		write(2, "Cannot find environment variable\n", 33);
 	else if (code == 2)
@@ -35,7 +49,7 @@ int		get_val(char **buff)
 {
 	int			i;
 	int			j;
-	size_t	len;
+	size_t		len;
 
 	i = 0;
 	j = 0;
@@ -65,15 +79,15 @@ char	*get_homedir(char *path)
 	while (g_env[i] && ft_strncmp(g_env[i], "HOME=", 5))
 		i++;
 	ft_strcpy(path, g_env[i] + 5);
-	return(path);
+	return (path);
 }
 
 void	rel_to_home(char **buff)
 {
 	char	*path_new;
 
-	if(!(path_new = (char *)malloc(PATH_MAX + 1)))
-		return void_err(0);
+	if (!(path_new = (char *)malloc(PATH_MAX + 1)))
+		return (void_err(0));
 	get_homedir(path_new);
 	if (ft_strcmp(buff[1], "~") && (ft_strcmp(buff[1], "~/")))
 		ft_strcat(path_new, buff[1] + 1);

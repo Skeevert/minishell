@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 14:54:16 by hshawand          #+#    #+#             */
+/*   Updated: 2019/10/07 14:54:40 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		p_exec(char *path, char **buff, char mode)
@@ -30,7 +42,7 @@ int		try_run(char *path, char **buff)
 	ft_strcpy(path_full, path);
 	ft_strcat(path_full, "/");
 	ft_strcat(path_full, buff[0]);
-	return p_exec(path_full, buff, 1);
+	return (p_exec(path_full, buff, 1));
 }
 
 void	execute(char **buff)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 14:55:00 by hshawand          #+#    #+#             */
+/*   Updated: 2019/10/07 14:55:07 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -33,7 +45,7 @@ int		get_val(char **buff);
 char	*get_homedir(char *path);
 void	rel_to_home(char **buff);
 
-void	execute(char **buff); /* TODO: change logic */
+void	execute(char **buff);
 void	handle_sigint(int sig);
 
 #endif
