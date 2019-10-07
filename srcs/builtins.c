@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:50:02 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/07 14:51:12 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/07 16:44:57 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,48 @@ void	builtin_exit(char **buff)
 	}
 }
 
+void	echo_print(char *str)
+{
+	char	out[1024];
+	char	*out_p;
+	int		i;
+
+	i = 0;
+	out_p = out;
+	ft_bzero(out, 1024);
+	while (i < 1023 && *str)
+	{
+		*str != '"' ? *out_p = *str : 0;
+		*str != '"' ? out_p++ : 0;
+		str++;
+		i++;
+	}
+	ft_putstr(out);
+	*str ? echo_print(str) : 0;
+}
+
 void	builtin_echo(char **buff)
 {
 	int		i;
+	int		j;
+	int		q_num;
 
+	i = 1;
+	q_num = 0;
+	while (buff[i])
+	{
+		j = 0;
+		while (buff[i][j])
+			buff[i][j++] == '"' ? q_num++ : 0;
+		i++;
+	}
+	if (q_num % 2)
+		return (void_err(5));
 	i = 1;
 	while (buff[i])
 	{
-		ft_putstr(buff[i]);
-		buff[i + 1] ? write(1, " ", 1) : 0;
+		echo_print(buff[i]);
+		buff[i + 1] ? ft_putchar(' ') : 0;
 		i++;
 	}
 	write(1, "\n", 1);

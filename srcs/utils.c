@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:45:34 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/07 14:45:40 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/07 16:38:20 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void	void_err(int code)
 {
 	if (code == 0)
-		write(2, "Cannot allocate enough memory
-			. Shell restart recommended\n", 57);
+		write(2, "Cannot allocate memory, reboot recommended\n", 43);
 	else if (code == 1)
 		write(2, "Not a Directory\n", 16);
 	else if (code == 2)
@@ -32,8 +31,7 @@ void	void_err(int code)
 int		int_err(int code)
 {
 	if (code == 0)
-		write(2, "Cannot allocate enough memory
-			. Shell restart recommended\n", 57);
+		write(2, "Cannot allocate memory, reboot recommended\n", 43);
 	else if (code == 1)
 		write(2, "Cannot find environment variable\n", 33);
 	else if (code == 2)

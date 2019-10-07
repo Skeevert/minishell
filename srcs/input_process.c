@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:48:24 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/07 14:49:16 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/07 16:08:12 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	form_curr_path(void)
 
 	getcwd(curr_path, PATH_MAX);
 	ft_strcat(curr_path, "> ");
+	ft_putstr("\x1b[33m");
 	write(1, curr_path, strlen(curr_path));
+	ft_putstr("\x1b[0m");
 }
 
 char	*get_user_command(void)
