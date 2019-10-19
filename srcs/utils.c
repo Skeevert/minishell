@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:45:34 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/14 16:33:47 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/19 12:34:54 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*get_homedir(char *path)
 	i = 0;
 	while (g_env[i] && ft_strncmp(g_env[i], "HOME=", 5))
 		i++;
-	ft_strcpy(path, g_env[i] + 5);
+	g_env[i] ? ft_strcpy(path, g_env[i] + 5) : 0;
 	return (path);
 }
 

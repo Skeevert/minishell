@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:50:02 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/07 16:44:57 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/19 12:30:00 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,19 @@ void	change_dir(char *path)
 	int		i;
 
 	i = 0;
-	while (ft_strncmp(g_env[i], "OLDPWD=", 7))
+	while (g_env[i] && ft_strncmp(g_env[i], "OLDPWD=", 7))
 		i++;
 	getcwd(pwd, PATH_MAX);
 	if (chdir(path))
 		return (void_err(1));
-	free(g_env[i]);
+	g_env[i] ? free(g_env[i]) : 0;
 	if (!(g_env[i] = ft_strjoin("OLDPWD=", pwd)))
 		return (void_err(0));
 	getcwd(pwd, PATH_MAX);
 	i = 0;
-	while (ft_strncmp(g_env[i], "PWD=", 4))
+	while (g_env[i] && ft_strncmp(g_env[i], "PWD=", 4))
 		i++;
-	free(g_env[i]);
+	g_env[i] ? free(g_env[i]) : 0;
 	if (!(g_env[i] = ft_strjoin("PWD=", pwd)))
 		return (void_err(0));
 }
@@ -115,7 +115,7 @@ void	builtin_cd(char **buff)
 	else if (buff[1][0] == '-' && !buff[1][1])
 	{
 		i = 0;
-		while (ft_strncmp(g_env[i], "OLDPWD=", 7))
+		while (g_env[i] && ft_strncmp(g_env[i], "OLDPWD=", 7))
 			i++;
 		change_dir(g_env[i] + 7);
 	}
