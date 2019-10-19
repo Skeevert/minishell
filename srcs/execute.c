@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:54:16 by hshawand          #+#    #+#             */
-/*   Updated: 2019/10/14 16:33:50 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/10/19 12:51:42 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static int		check_paths(char *path, char **buff)
 	free(exec_paths);
 	return (ret);
 }
-
 
 void			execute(char **buff)
 {
